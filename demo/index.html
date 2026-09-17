@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f5f1e8">
+    <meta name="description" content="A private, zero-account demonstration of Phasr, the open-source executive-function companion.">
+    <title>Phasr — one manageable next step</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to the session</a>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Phasr home">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span>Phasr</span>
+      </a>
+      <a class="github-link" href="https://github.com/Fremen/phasr-core">View source <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main id="main">
+      <section class="intro" id="intro">
+        <p class="eyebrow">LOCAL-FIRST · OPEN SOURCE</p>
+        <h1>Make the next step<br><em>small enough to start.</em></h1>
+        <p class="lede">A calm execution aid for the moment between knowing what to do and being able to begin.</p>
+
+        <div class="principles" aria-label="Phasr principles">
+          <span>One step at a time</span>
+          <span>Visible time</span>
+          <span>Easy to pause</span>
+        </div>
+      </section>
+
+      <section class="workspace" aria-live="polite">
+        <form class="setup-card" id="setup-form">
+          <div class="card-heading">
+            <div>
+              <p class="step-label">START HERE</p>
+              <h2>What are you trying to move forward?</h2>
+            </div>
+            <span class="privacy-pill">Stays in this browser</span>
+          </div>
+
+          <label for="task">Task or situation</label>
+          <textarea id="task" rows="3" maxlength="280" placeholder="e.g. Write the project update" required></textarea>
+
+          <div class="examples" aria-label="Example tasks">
+            <button type="button" data-example="Reply to the difficult email">Difficult email</button>
+            <button type="button" data-example="Get ready to leave the house">Leave the house</button>
+            <button type="button" data-example="Plan the first hour of tomorrow">Plan tomorrow</button>
+          </div>
+
+          <fieldset>
+            <legend>What kind of help?</legend>
+            <div class="mode-grid">
+              <label class="mode-option">
+                <input type="radio" name="mode" value="prep" checked>
+                <span><strong>Start</strong><small>Turn it into actions</small></span>
+              </label>
+              <label class="mode-option">
+                <input type="radio" name="mode" value="prioritise">
+                <span><strong>Choose</strong><small>Find the best next item</small></span>
+              </label>
+              <label class="mode-option">
+                <input type="radio" name="mode" value="plan">
+                <span><strong>Plan</strong><small>One decision at a time</small></span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="time-row">
+            <label for="timebox">Time available</label>
+            <select id="timebox">
+              <option value="5">5 minutes</option>
+              <option value="10">10 minutes</option>
+              <option value="20" selected>20 minutes</option>
+              <option value="30">30 minutes</option>
+              <option value="45">45 minutes</option>
+            </select>
+          </div>
+
+          <button class="primary" type="submit">Give me one next step <span aria-hidden="true">→</span></button>
+          <p class="form-note">No account. No analytics. No data leaves this page.</p>
+        </form>
+
+        <section class="session-card" id="session" hidden>
+          <div class="session-topline">
+            <span id="mode-label">START SESSION</span>
+            <button class="text-button" id="reset" type="button">End session</button>
+          </div>
+          <div class="time-display">
+            <span id="clock">20:00</span>
+            <span id="time-copy">available</span>
+          </div>
+          <div class="progress-track" aria-hidden="true"><span id="progress"></span></div>
+
+          <div class="step-area">
+            <p class="step-label" id="step-count">STEP 1</p>
+            <h2 id="current-step" tabindex="-1"></h2>
+            <p id="support-copy">You only need to do this step.</p>
+          </div>
+
+          <div class="session-actions">
+            <button class="primary" id="done" type="button">Done <span aria-hidden="true">✓</span></button>
+            <button class="secondary" id="smaller" type="button">Make it smaller</button>
+            <button class="secondary" id="pause" type="button">Pause</button>
+          </div>
+
+          <div class="return-panel" id="return-panel" hidden>
+            <p>You have not lost your place.</p>
+            <button class="primary" id="resume" type="button">Return to this step</button>
+          </div>
+        </section>
+
+        <section class="complete-card" id="complete" hidden>
+          <p class="completion-mark" aria-hidden="true">✓</p>
+          <p class="step-label">SESSION COMPLETE</p>
+          <h2>You moved it forward.</h2>
+          <p id="completion-copy"></p>
+          <button class="primary" id="again" type="button">Start another session</button>
+        </section>
+      </section>
+
+      <section class="about">
+        <p class="eyebrow">THE IDEA</p>
+        <h2>Task storage is solved.<br>Task execution still needs work.</h2>
+        <div class="about-grid">
+          <p>Phasr is an experiment in calmer software for task initiation, sequencing, time awareness and returning after interruption.</p>
+          <p>This demonstration is deliberately deterministic. The full TypeScript engine adds nested sessions, local stores, five modes and optional model assistance.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Built in the open for people whose brains do not always follow the plan.</p>
+      <nav aria-label="Project links">
+        <a href="https://github.com/Fremen/phasr-core">Code</a>
+        <a href="https://github.com/Fremen/phasr-core/blob/main/PRIVACY.md">Privacy</a>
+        <a href="https://github.com/Fremen/phasr-core/blob/main/CONTRIBUTING.md">Contribute</a>
+      </nav>
+    </footer>
+    <script src="app.js"></script>
+  </body>
+</html>

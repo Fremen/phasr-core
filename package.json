@@ -1,0 +1,53 @@
+{
+  "name": "@fremen/phasr",
+  "version": "0.2.0",
+  "description": "A local-first, open-source executive-function companion for turning an overwhelming task into one manageable next step.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./mcp": {
+      "import": "./dist/mcp.js",
+      "types": "./dist/mcp.d.ts"
+    }
+  },
+  "bin": {
+    "phasr": "./dist/cli.js",
+    "phasr-mcp": "./dist/mcp.js"
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsup",
+    "check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "demo": "npx serve demo",
+    "prepublishOnly": "npm run check && npm test && npm run build"
+  },
+  "keywords": ["accessibility", "executive-function", "neurodivergent", "planning", "productivity", "local-first", "mcp"],
+  "author": "Fremen",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fremen/phasr-core.git"
+  },
+  "bugs": {"url": "https://github.com/Fremen/phasr-core/issues"},
+  "homepage": "https://fremen.github.io/phasr-core/",
+  "engines": {"node": ">=20"},
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.74.0",
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.3",
+    "tsup": "^8.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}
