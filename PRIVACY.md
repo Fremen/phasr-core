@@ -6,7 +6,8 @@ needed to help with a task.
 ## Defaults
 
 - The TypeScript engine has no telemetry.
-- The browser demo has no account, analytics, cookies or network calls.
+- The browser demo has no analytics. Its on-device planner makes no network
+  request and requires no account.
 - The MCP server uses in-memory storage unless `PHASR_DATA_DIR` is set.
 - The deterministic engine does not require an API key or model.
 
@@ -15,7 +16,15 @@ needed to help with a task.
 `createLLMClient()` is an optional adapter. When it is configured, task text
 needed for the requested operation is sent to the selected model provider.
 Review that provider's terms and avoid entering information you do not want to
-send. The browser demo does not use this adapter.
+send.
+
+## Browser AI planning
+
+The browser demo's optional AI planner uses Puter.js. When selected, the task text,
+planning mode and timebox are sent to Puter for model processing, and Puter may
+ask the user to sign in. It is off by default; leave “Use the AI planner”
+unticked to keep the task on-device. If the AI request fails, the demo uses its
+deterministic planner instead.
 
 ## Local files
 

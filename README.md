@@ -6,7 +6,7 @@ Phasr is a local-first, open-source executive-function companion. It is designed
 with neurodivergent people in mind, especially the moments when planning,
 starting, sequencing, or returning to a task feels harder than the task itself.
 
-[Try the private, zero-account browser demo](https://fremen.github.io/phasr-core/)
+[Try the browser demo](https://fremen.github.io/phasr-core/)
 
 ## Why I built it
 
@@ -29,8 +29,10 @@ not contain personal sessions, private task data, or deployment configuration.
 
 ## Try it
 
-The browser demo runs entirely in your browser. It makes no network requests,
-stores no account, and clears its working state when you reset or close it.
+The browser demo offers two planners. Its deterministic planner runs entirely
+on-device without an account. Its optional AI planner uses Puter.js's free
+allowance, sends the task and selected mode to Puter, and may ask the user to
+sign in. If the AI service fails, Phasr falls back to the on-device planner.
 
 For the TypeScript engine:
 

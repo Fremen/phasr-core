@@ -1,4 +1,5 @@
 import { cleanTask, createPlan } from './planner.js';
+import { createAIPlan } from './ai-planner.js';
 
 (() => {
   'use strict';
@@ -15,6 +16,8 @@ import { cleanTask, createPlan } from './planner.js';
   const supportCopy = $('#support-copy');
   const returnPanel = $('#return-panel');
   const sessionActions = $('.session-actions');
+  const submitButton = setup.querySelector('button[type="submit"]');
+  const submitLabel = submitButton.innerHTML;
 
   let state = null;
   let ticker = null;
@@ -56,7 +59,7 @@ import { cleanTask, createPlan } from './planner.js';
     }
   }
 
-  function startSession(event) {
+  async function startSession(event) {
     event.preventDefault();
     const task = cleanTask(taskInput.value);
     if (!task) {
@@ -66,10 +69,36 @@ import { cleanTask, createPlan } from './planner.js';
     const mode = new FormData(setup).get('mode');
     const minutes = Number($('#timebox').value);
     const durationMs = minutes * 60 * 1000;
+    const useAI = $('#use-ai').checked;
+    let steps;
+    let source = 'On-device planner';
+
+    submitButton.disabled = true;
+    submitButton.textContent = useAI ? 'Building your AI plan…' : 'Building your plan…';
+    $('#planner-error').hidden = true;
+
+    if (useAI) {
+      try {
+        const chat = (prompt) => window.puter.ai.chat(prompt);
+        steps = await createAIPlan(task, mode, minutes, chat);
+        source = 'AI plan via Puter · review each step before acting';
+      } catch (error) {
+        steps = createPlan(mode, task);
+        source = 'AI unavailable · using the on-device planner';
+        $('#planner-error').textContent =
+          'AI was unavailable, so Phasr made a local plan instead.';
+        $('#planner-error').hidden = false;
+      }
+    } else {
+      steps = createPlan(mode, task);
+    }
+
+    submitButton.disabled = false;
+    submitButton.innerHTML = submitLabel;
     state = {
       task,
       mode,
-      steps: createPlan(mode, task),
+      steps,
       index: 0,
       completed: 0,
       smaller: false,
@@ -78,6 +107,7 @@ import { cleanTask, createPlan } from './planner.js';
       pausedAt: null
     };
     $('#mode-label').textContent = labels[mode];
+    $('#plan-source').textContent = source;
     $('#time-copy').textContent = 'available';
     returnPanel.hidden = true;
     sessionActions.hidden = false;

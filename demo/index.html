@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#f5f1e8">
-    <meta name="description" content="A private, zero-account demonstration of Phasr, the open-source executive-function companion.">
+    <meta name="description" content="A browser demonstration of Phasr, the open-source executive-function companion.">
     <title>Phasr — one manageable next step</title>
     <link rel="stylesheet" href="styles.css">
   </head>
@@ -79,8 +79,17 @@
             </select>
           </div>
 
+          <label class="ai-option" for="use-ai">
+            <input id="use-ai" type="checkbox">
+            <span>
+              <strong>Use the AI planner (free allowance)</strong>
+              <small>Sends this task to Puter and may ask you to sign in. Leave unticked to keep planning on this device.</small>
+            </span>
+          </label>
+
           <button class="primary" type="submit">Give me one next step <span aria-hidden="true">→</span></button>
-          <p class="form-note">No account. No analytics. No data leaves this page.</p>
+          <p class="form-note">No analytics. The on-device planner does not send your task anywhere.</p>
+          <p class="form-error" id="planner-error" role="status" hidden></p>
         </form>
 
         <section class="session-card" id="session" hidden>
@@ -93,6 +102,7 @@
             <span id="time-copy">available</span>
           </div>
           <div class="progress-track" aria-hidden="true"><span id="progress"></span></div>
+          <p class="plan-source" id="plan-source"></p>
 
           <div class="step-area">
             <p class="step-label" id="step-count">STEP 1</p>
@@ -139,6 +149,7 @@
         <a href="https://github.com/Fremen/phasr-core/blob/main/CONTRIBUTING.md">Contribute</a>
       </nav>
     </footer>
+    <script src="https://js.puter.com/v2/"></script>
     <script type="module" src="app.js"></script>
   </body>
 </html>
