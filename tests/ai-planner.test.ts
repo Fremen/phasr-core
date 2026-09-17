@@ -33,6 +33,7 @@ describe('free AI planner', () => {
     expect(prompt).toContain('concrete');
     expect(prompt).toContain('safety');
     expect(prompt).toContain('two minutes');
+    expect(prompt).toContain('under one minute');
     expect(prompt).toContain('cut the grass');
   });
 

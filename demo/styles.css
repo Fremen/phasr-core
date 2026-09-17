@@ -303,6 +303,11 @@ fieldset {
   color: var(--ink);
 }
 
+.secondary:disabled {
+  cursor: default;
+  opacity: .58;
+}
+
 .form-note {
   margin: .8rem 0 0;
   text-align: center;

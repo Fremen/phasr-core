@@ -14,6 +14,7 @@ import { createAIPlan } from './ai-planner.js';
   const stepCount = $('#step-count');
   const currentStep = $('#current-step');
   const supportCopy = $('#support-copy');
+  const smallerButton = $('#smaller');
   const returnPanel = $('#return-panel');
   const sessionActions = $('.session-actions');
   const submitButton = setup.querySelector('button[type="submit"]');
@@ -40,8 +41,10 @@ import { createAIPlan } from './ai-planner.js';
     stepCount.textContent = 'STEP ' + (state.index + 1) + ' OF ' + total;
     currentStep.textContent = state.steps[state.index].text;
     supportCopy.textContent = state.smaller
-      ? 'Two minutes is enough. Stop there if you need to.'
-      : 'You only need to do this step.';
+      ? 'This sub-minute move is enough. Stop there if you need to.'
+      : 'Start here. It does not need to become a whole session.';
+    smallerButton.disabled = state.smaller;
+    smallerButton.textContent = state.smaller ? 'Smallest useful step' : 'Make it smaller';
     currentStep.focus({ preventScroll: true });
   }
 

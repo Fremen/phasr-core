@@ -10,6 +10,8 @@ describe('browser demo planner', () => {
     expect(plan.map((item) => item.text).join(' ')).toMatch(/dry enough/i);
     expect(plan.map((item) => item.text).join(' ')).toMatch(/mower/i);
     expect(plan.map((item) => item.text).join(' ')).toMatch(/narrow strip/i);
+    expect(plan[0].text).toBe('Look outside and decide only this: dry enough to mow now — yes or no?');
+    expect(plan[0].tiny).toBe('Look outside.');
     expect(plan.every((item) => item.tiny.length > 10)).toBe(true);
   });
 
@@ -25,8 +27,8 @@ describe('browser demo planner', () => {
 
     expect(classifyTask('reply to the difficult email')).toBe('email');
     expect(text).toMatch(/outcome/i);
-    expect(text).toMatch(/draft/i);
-    expect(text).toMatch(/send/i);
+    expect(text).toMatch(/first sentence/i);
+    expect(text).toMatch(/recipient/i);
   });
 
   it('uses a concrete fallback without pretending to understand the task', () => {
@@ -35,7 +37,7 @@ describe('browser demo planner', () => {
 
     expect(classifyTask('calibrate the flux manifold')).toBe('general');
     expect(text).toMatch(/done enough/i);
-    expect(text).toMatch(/first tool, document or material/i);
+    expect(text).toMatch(/first thing you need/i);
     expect(text).not.toMatch(/smallest visible part/i);
   });
 
@@ -45,6 +47,7 @@ describe('browser demo planner', () => {
       expect(plan.length).toBeGreaterThanOrEqual(4);
       expect(plan.every((item) => item.text && item.tiny)).toBe(true);
       expect(plan.every((item) => item.text !== item.tiny)).toBe(true);
+      expect(plan.every((item) => item.detail.length > item.tiny.length)).toBe(true);
     }
   });
 
