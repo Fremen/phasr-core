@@ -1,3 +1,5 @@
+import { cleanTask, createPlan } from './planner.js';
+
 (() => {
   'use strict';
 
@@ -17,37 +19,6 @@
   let state = null;
   let ticker = null;
 
-  const cleanTask = (value) => value.trim().replace(/[.!?]+$/, '');
-
-  const plans = {
-    prep(task) {
-      return [
-        'Put everything else aside for this short session.',
-        'Open or place in front of you the one thing you need.',
-        'Do the smallest visible part of “' + task + '”.',
-        'Write down where you stopped so returning is easy.'
-      ];
-    },
-    prioritise(task) {
-      const items = task.split(/\n|,/).map(cleanTask).filter(Boolean);
-      const choice = items[0] || cleanTask(task);
-      return [
-        'Take one slow breath. You do not need to solve the whole list.',
-        'Choose the item with the nearest real consequence.',
-        'For now, let “' + choice + '” be the only active item.',
-        'Define one action you can complete before this timer ends.'
-      ];
-    },
-    plan(task) {
-      return [
-        'Write one sentence describing what “done enough” means.',
-        'Name the first constraint: time, information, energy or another person.',
-        'Choose one decision that would make “' + task + '” easier.',
-        'Turn that decision into a physical next action.'
-      ];
-    }
-  };
-
   const labels = {
     prep: 'START SESSION',
     prioritise: 'CHOOSE SESSION',
@@ -64,7 +35,7 @@
   function renderStep() {
     const total = state.steps.length;
     stepCount.textContent = 'STEP ' + (state.index + 1) + ' OF ' + total;
-    currentStep.textContent = state.steps[state.index];
+    currentStep.textContent = state.steps[state.index].text;
     supportCopy.textContent = state.smaller
       ? 'Two minutes is enough. Stop there if you need to.'
       : 'You only need to do this step.';
@@ -98,7 +69,7 @@
     state = {
       task,
       mode,
-      steps: plans[mode](task),
+      steps: createPlan(mode, task),
       index: 0,
       completed: 0,
       smaller: false,
@@ -147,11 +118,7 @@
 
   $('#smaller').addEventListener('click', () => {
     if (state.smaller) return;
-    const original = state.steps[state.index]
-      .replace(/^Make it tiny: /, '')
-      .replace(/\.$/, '');
-    state.steps[state.index] = 'Make it tiny: spend two minutes setting up to ' +
-      original.charAt(0).toLowerCase() + original.slice(1) + '.';
+    state.steps[state.index].text = state.steps[state.index].tiny;
     state.smaller = true;
     renderStep();
   });
